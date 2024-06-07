@@ -3,23 +3,25 @@ import random
 MAX_LINES = 3
 MIN_BET = 1
 MAX_BET = 1000
-
 ROWS = 3
 COLUMNS = 3
 
+# Number of times a symbol can appear
 symbol_count = {
     "A": 2,
     "B": 4,
     "C": 6,
     "D": 8
 }
-
+# Assigned value for each symbol
 symbol_value = {
     "A": 5,
     "B": 4,
     "C" : 2,
     "D": 1
 }
+
+# Function is used to check for wins and calculate the amount the user won
 def check_wins(cols, lines, bet,value):
     amount = 0
     lines_win = []
@@ -34,6 +36,7 @@ def check_wins(cols, lines, bet,value):
             lines_win.append(line +1)
     return amount, lines_win
 
+# Function simulates a spin of a slot machine
 def machine_spin(rows,cols,symbols):
     all_symbols = []
     for symbol, symbol_count in symbols.items():
@@ -52,6 +55,7 @@ def machine_spin(rows,cols,symbols):
         columns.append(column)
     return columns
 
+# Function prints out the slot machine into a readable format
 def print_machine(columns):
     for row in range(len(columns[0])):
         for i, column in enumerate(columns):
@@ -60,6 +64,8 @@ def print_machine(columns):
             else:
                 print(column[row], end = "")
         print()
+
+# Function handles the deposit amount
 def deposit():
     while True:
         amount = input("Deposit Amount $:")
@@ -74,6 +80,7 @@ def deposit():
 
     return amount
 
+# Function gets the input from the user for the amount of lines to bet on
 def get_number_of_lines():
     while True:
         lines = input("Line Amount (1-" + str(MAX_LINES) + ")? ")
@@ -88,6 +95,7 @@ def get_number_of_lines():
 
     return lines
 
+# Function handles the betting process
 def betting():
     while True:
         amount = input("Bet Amount for each Line $:")
@@ -102,6 +110,7 @@ def betting():
 
     return amount
 
+# Function simulates the game loop of a spin machine and betting
 def game_loop(balance):
     lines = get_number_of_lines()
     while True:
@@ -120,6 +129,8 @@ def game_loop(balance):
     print(f"You won ${win}")
     print(f"Won on lines: ", *lines_win)
     return win - total_bet
+
+# Function starts and runs the game
 def main():
     balance = deposit()
     while True:
